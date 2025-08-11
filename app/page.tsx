@@ -61,7 +61,8 @@ export default function SimpiITSolutions() {
       setStatus('Sending...');
 
       try {
-        const response = await fetch('http://localhost/send-mail.php', {
+       const response = await fetch("/api/send-mail", {
+       // const response = await fetch('https://simpi-it-solutions.great-site.net/send-mail.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
