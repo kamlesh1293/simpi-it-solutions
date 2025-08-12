@@ -40,8 +40,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import './style.css'
 export default function SimpiITSolutions() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
    const [formData, setFormData] = useState({
       firstName: '',
       lastName: '',
@@ -70,6 +71,16 @@ export default function SimpiITSolutions() {
 
         const result = await response.json();
         setStatus(result.success ? 'Message sent successfully!' : 'Failed to send message.');
+        if(result.success) {
+          setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            projectType: '',
+            description: '',
+          });
+        }
       } catch (err) {
         setStatus('Something went wrong.');
       }
@@ -103,16 +114,44 @@ export default function SimpiITSolutions() {
               </Link>
             </nav>
 
-            <Link href="#contact" className="flex items-center space-x-4">
-              <Button>
-                Get Quote
-                <ArrowRight className="ml-2 w-4 h-4" />
+            <div className="flex items-center space-x-4">
+              <Button className="btn-quote">
+                <Link href="#contact" className="flex">Get Quote
+                <ArrowRight className="ml-2 w-4 h-4 flex pt-1" /></Link>
               </Button>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="w-5 h-5" />
-              </Button>
-            </Link>
+            </div>
+             <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
           </div>
+          {/* Mobile Navigation Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t bg-white">
+              <nav className="px-4 py-4 space-y-4">
+              <Link href="#about"
+                  className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                About
+              </Link>
+              <Link href="#services"  className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                Services
+              </Link>
+              <Link href="#technologies"  className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                Technologies
+              </Link>
+              <Link href="#contact"  className="block text-gray-600 hover:text-gray-900 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}>
+                Contact
+              </Link>
+              </nav>
+        </div>)}
         </div>
       </header>
 
@@ -223,7 +262,7 @@ export default function SimpiITSolutions() {
                     <Users className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">50+</h3>
+                    <h3 className="font-semibold text-gray-900">25+</h3>
                     <p className="text-gray-600">Projects Completed</p>
                   </div>
                 </div>
@@ -378,8 +417,8 @@ export default function SimpiITSolutions() {
               { name: "Angular", color: "bg-red-100 text-red-600", icon: faAngular },
               { name: "React", color: "bg-blue-100 text-blue-600", icon: faReact },
               { name: "HTML5", color: "bg-orange-100 text-orange-600", icon: faHtml5 },
-              { name: "JavaScript", color: "bg-yellow-100 text-yellow-600", icon: faCss3Alt },
-              { name: "CSS3", color: "bg-blue-100 text-blue-600", icon: faJsSquare },
+              { name: "JavaScript", color: "bg-yellow-100 text-yellow-600", icon: faJsSquare },
+              { name: "CSS3", color: "bg-blue-100 text-blue-600", icon: faCss3Alt },
               { name: "SQL Server", color: "bg-gray-100 text-gray-600", icon: faDatabase },
               { name: "MySQL", color: "bg-blue-100 text-blue-600", icon: faDatabase },
               { name: "MongoDB", color: "bg-green-100 text-green-600", icon: faDatabase},
